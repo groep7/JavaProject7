@@ -8,9 +8,14 @@
     <h:body>
         #{javaProject7Controller.testZin}
         
-        
-        
-        Hello from Facelets
+        <h:dataTable var="student" value="#{javaProject7Controller.studenten}">
+            <h:column>
+                <h:outputText value="#{student.voornaam}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{student.achternaam}" />
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
 
