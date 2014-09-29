@@ -24,7 +24,6 @@ public class Student implements Serializable {
     
     private String voornaam;
     private String achternaam;
-    private Klas klas;
     
 
     public Long getId() {
