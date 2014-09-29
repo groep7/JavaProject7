@@ -21,6 +21,8 @@ public class JavaProject7Controller {
     
     private List<Student> studenten;
     
+    private String testZin;
+    
     @EJB
     private JavaProject7Service javaProject7Service;
     
@@ -30,6 +32,14 @@ public class JavaProject7Controller {
     
     public void setStudenten(List<Student> studenten) {
         this.studenten = studenten;
+    }
+    
+    public String getTestZin() {
+        return testZin;
+    }
+    
+    public void setTextZin(String testZin) {
+        this.testZin = testZin;
     }
     
 }

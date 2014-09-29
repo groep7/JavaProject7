@@ -25,6 +25,10 @@ public class JavaProject7Service {
     @PersistenceContext
     private EntityManager em; 
     
+    public String testZin() {
+        return "Dit werkt";
+    }
+    
     @TransactionAttribute(REQUIRES_NEW)
     public List<Student> getAllStudenten() {
         Query q = em.createQuery("SELECT s FROM Student s");
