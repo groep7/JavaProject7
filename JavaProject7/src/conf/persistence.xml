@@ -2,12 +2,12 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="JavaProject7PU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>JavaProject7db</jta-data-source>
+    <jta-data-source>JavaProject7PU</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-      <property name="hibernate.default_schema" value="test" />
+      <property name="hibernate.default_schema" value="sql353600" />
       <property name="hibernate.connection.driver_class" 
                 value="com.mysql.jdbc.driver" />
       <property name="hibernate.transaction.factory_class" 
