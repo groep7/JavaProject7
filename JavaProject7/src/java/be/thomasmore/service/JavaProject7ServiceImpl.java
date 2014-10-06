@@ -20,10 +20,18 @@ import javax.persistence.Query;
  */
 
 @Stateless
-public interface JavaProject7Service {
-      
-    public String testZin();
+public class JavaProject7ServiceImpl {
+    
+    @PersistenceContext
+    private EntityManager em; 
+    
+    public String testZin() {
+        return "Dit werkt";
+    }
     
     @TransactionAttribute(REQUIRES_NEW)
-    public List<Student> getAllStudenten();
+    public List<Student> getAllStudenten() {
+        Query q = em.createQuery("SELECT s FROM Student s");
+        return (List<Student>) q.getResultList();
+    }
 }
