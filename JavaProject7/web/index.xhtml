@@ -48,13 +48,18 @@
                 <br class="clear" />
             </div>
             <!-- ####################################################################################################### -->
+            
+            
+            
             <div id="homecontent">
                 <h:form enctype="multipart/form-data">
-                    <h:inputFile value="#{demo.file}"/><br/>
-                    <h:commandButton action="#{demo.upload()}" value="Uploaden"/>
+                    <h:inputFile value="#{inputBean.part}"/>
+                    <h:commandButton id="submit" action="#{inputBean.uploadFile}" value="upload file" /><br />
                 </h:form>
                 <br class="clear" />
             </div>
+            
+            
             <!-- ####################################################################################################### -->
             <div id="imageline">
                 <ul>

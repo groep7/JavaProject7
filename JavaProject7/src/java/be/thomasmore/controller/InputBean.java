@@ -37,7 +37,7 @@ public class InputBean implements Serializable {
 		String fileName = getFileName(part);
 		System.out.println("***** fileName: " + fileName);
  
-		String basePath = "C:" + File.separator + "temp" + File.separator;
+		String basePath = "C:" + File.separator + "data" + File.separator;
 		File outputFilePath = new File(basePath + fileName);
  
 		// Copy uploaded file to destination path
