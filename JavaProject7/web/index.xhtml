@@ -7,8 +7,9 @@
         <link rel="stylesheet" type="text/css" href="css/layout.css"/>
     </h:head>
     <h:body>
-        <form action="" method="POST">
-        Voeg een Excelbestand toe: <input type="file" name="file" id="file" />
-        </form>
+        <h:form enctype="multipart/form-data">
+            <h:inputFile value="#{demo.file}"/><br/>
+            <h:commandButton value="Uploaden"/>
+        </h:form>
     </h:body>
 </html>
