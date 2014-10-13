@@ -19,7 +19,6 @@ import javax.persistence.Query;
  * @author Dries
  */
 
-@Stateless
 public interface JavaProject7Service {
       
     public String testZin();

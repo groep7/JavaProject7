@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 
 @Stateless
-public class JavaProject7ServiceImpl {
+public class JavaProject7ServiceImpl implements JavaProject7Service{
     
     @PersistenceContext
     private EntityManager em; 
