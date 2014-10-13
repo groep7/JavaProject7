@@ -49,12 +49,10 @@
             </div>
             <!-- ####################################################################################################### -->
             <div id="homecontent">
-                <form action="" method="POST">
-                    Voeg een Excelbestand toe: <input type="file" name="file" id="file" />
-                </form>
+                fff
                 <h:form enctype="multipart/form-data">
                     <h:inputFile value="#{demo.file}"/><br/>
-                    <h:commandButton value="Uploaden"/>
+                    <h:commandButton action="#{demo.upload()}" value="Uploaden"/>
                 </h:form>
                 <br class="clear" />
             </div>
