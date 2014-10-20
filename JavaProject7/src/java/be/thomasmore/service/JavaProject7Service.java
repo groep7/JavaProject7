@@ -7,12 +7,8 @@ package be.thomasmore.service;
 
 import be.thomasmore.model.Student;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -25,4 +21,5 @@ public interface JavaProject7Service {
     
     @TransactionAttribute(REQUIRES_NEW)
     public List<Student> getAllStudenten();
+    public void addStudent(Student student);
 }
