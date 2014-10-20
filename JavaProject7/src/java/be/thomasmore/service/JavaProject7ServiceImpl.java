@@ -6,6 +6,7 @@
 package be.thomasmore.service;
 
 import be.thomasmore.model.Student;
+import be.thomasmore.model.Test;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -33,5 +34,8 @@ public class JavaProject7ServiceImpl implements JavaProject7Service{
     public List<Student> getAllStudenten() {
         Query q = em.createQuery("SELECT s FROM Student s");
         return (List<Student>) q.getResultList();
+    }
+    public void addStudent(Student student){
+        em.persist(student);
     }
 }
