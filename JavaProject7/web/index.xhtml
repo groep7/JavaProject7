@@ -55,7 +55,7 @@
                 <h:form enctype="multipart/form-data">
                     <h:inputFile value="#{inputBean.part}"/>
                     <h:commandButton id="submit" action="#{inputBean.uploadFile}" value="upload file" /><br />
-                    <h:commandButton action="#{HTMLToPdf.Write}" value="PDF"/>
+                    <h:commandButton action="#{inputBean.Write}" value="PDF"/>
                 </h:form>
                 <br class="clear" />
             </div>
