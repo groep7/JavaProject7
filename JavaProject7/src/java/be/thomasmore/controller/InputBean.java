@@ -75,19 +75,25 @@ public class InputBean implements Serializable {
                 inputStream.close();
             }
         }
+        
+        leesExcel(basePath + fileName);
+        
         return null;    // return to same page
     }
-    
-    /** Path to the resulting PDF file. */
+
+    /**
+     * Path to the resulting PDF file.
+     */
     public static final String RESULT
-        = "D://hello.pdf";
+            = "D://hello.pdf";
 
     public static void Write() throws DocumentException, IOException {
-        
+
         new InputBean().createPdf(RESULT);
     }
+
     public void createPdf(String filename)
-	throws DocumentException, IOException {
+            throws DocumentException, IOException {
         // step 1
         Document document = new Document();
         // step 2
@@ -128,52 +134,52 @@ public class InputBean implements Serializable {
         }
         return null;
     }
-    
+
     private void leesExcel(String path) {
         try {
-			FileInputStream fileInputStream = new FileInputStream(path);
-			XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
-			XSSFSheet worksheet = workbook.getSheet("Blad1");
-                        
-			XSSFRow row1 = worksheet.getRow(0);
-			XSSFCell cellA1 = row1.getCell((short) 0);
-			String a1Val = cellA1.getStringCellValue();
-			XSSFCell cellB1 = row1.getCell((short) 1);
-			String b1Val = cellB1.getStringCellValue();
-                        
-                        XSSFRow row2 = worksheet.getRow(1);
-			XSSFCell cellA2 = row2.getCell((short) 0);
-			String a2Val = cellA2.getStringCellValue();
-			XSSFCell cellB2 = row2.getCell((short) 1);
-			String b2Val = cellB2.getStringCellValue();
-                        
-                        XSSFRow row7 = worksheet.getRow(6);
-                        double a7Val = row7.getCell((short) 0).getNumericCellValue();
-                        String b7Val = row7.getCell((short) 1).getStringCellValue();
-                        double c7Val = row7.getCell((short) 2).getNumericCellValue();
-                        
-                        XSSFRow row8 = worksheet.getRow(7);
-                        double a8Val = row8.getCell((short) 0).getNumericCellValue();
-                        String b8Val = row8.getCell((short) 1).getStringCellValue();
-                        double c8Val = row8.getCell((short) 2).getNumericCellValue();
-                        
-                        XSSFRow row9 = worksheet.getRow(8);
-                        double a9Val = row9.getCell((short) 0).getNumericCellValue();
-                        String b9Val = row9.getCell((short) 1).getStringCellValue();
-                        double c9Val = row9.getCell((short) 2).getNumericCellValue();
+            FileInputStream fileInputStream = new FileInputStream(path);
+            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+            XSSFSheet worksheet = workbook.getSheet("Blad1");
 
-			System.out.println("A1: " + a1Val);
-			System.out.println("B1: " + b1Val);
-			System.out.println("A2: " + a2Val);
-			System.out.println("B2: " + b2Val);
-                        System.out.println("Studentnr - naam - score");
-                        System.out.println(a7Val + " " + b7Val + " " + c7Val);
-                        System.out.println(a8Val + " " + b8Val + " " + c8Val);
-                        System.out.println(a9Val + " " + b9Val + " " + c9Val);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            XSSFRow row1 = worksheet.getRow(0);
+            XSSFCell cellA1 = row1.getCell((short) 0);
+            String a1Val = cellA1.getStringCellValue();
+            XSSFCell cellB1 = row1.getCell((short) 1);
+            String b1Val = cellB1.getStringCellValue();
+
+            XSSFRow row2 = worksheet.getRow(1);
+            XSSFCell cellA2 = row2.getCell((short) 0);
+            String a2Val = cellA2.getStringCellValue();
+            XSSFCell cellB2 = row2.getCell((short) 1);
+            String b2Val = cellB2.getStringCellValue();
+
+            XSSFRow row7 = worksheet.getRow(6);
+            int a7Val = (int) row7.getCell((short) 0).getNumericCellValue();
+            String b7Val = row7.getCell((short) 1).getStringCellValue();
+            int c7Val = (int) row7.getCell((short) 2).getNumericCellValue();
+
+            XSSFRow row8 = worksheet.getRow(7);
+            int a8Val = (int) row8.getCell((short) 0).getNumericCellValue();
+            String b8Val = row8.getCell((short) 1).getStringCellValue();
+            int c8Val = (int) row8.getCell((short) 2).getNumericCellValue();
+
+            XSSFRow row9 = worksheet.getRow(8);
+            int a9Val = (int) row9.getCell((short) 0).getNumericCellValue();
+            String b9Val = row9.getCell((short) 1).getStringCellValue();
+            int c9Val = (int) row9.getCell((short) 2).getNumericCellValue();
+
+            System.out.println("A1: " + a1Val);
+            System.out.println("B1: " + b1Val);
+            System.out.println("A2: " + a2Val);
+            System.out.println("B2: " + b2Val);
+            System.out.println("Studentnr - naam - score");
+            System.out.println(a7Val + " " + b7Val + " " + c7Val);
+            System.out.println(a8Val + " " + b8Val + " " + c8Val);
+            System.out.println(a9Val + " " + b9Val + " " + c9Val);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
