@@ -168,14 +168,16 @@ public class InputBean implements Serializable {
             String b9Val = row9.getCell((short) 1).getStringCellValue();
             int c9Val = (int) row9.getCell((short) 2).getNumericCellValue();
 
-            System.out.println("A1: " + a1Val);
-            System.out.println("B1: " + b1Val);
-            System.out.println("A2: " + a2Val);
-            System.out.println("B2: " + b2Val);
-            System.out.println("Studentnr - naam - score");
-            System.out.println(a7Val + " " + b7Val + " " + c7Val);
-            System.out.println(a8Val + " " + b8Val + " " + c8Val);
-            System.out.println(a9Val + " " + b9Val + " " + c9Val);
+//            System.out.println("A1: " + a1Val);
+//            System.out.println("B1: " + b1Val);
+//            System.out.println("A2: " + a2Val);
+//            System.out.println("B2: " + b2Val);
+//            System.out.println("Studentnr - naam - score");
+//            System.out.println(a7Val + " " + b7Val + " " + c7Val);
+//            System.out.println(a8Val + " " + b8Val + " " + c8Val);
+//            System.out.println(a9Val + " " + b9Val + " " + c9Val);
+            
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
