@@ -19,7 +19,6 @@ public interface JavaProject7Service {
       
     public String testZin();
     
-    @TransactionAttribute(REQUIRES_NEW)
     public List<Student> getAllStudenten();
     public void addStudent(Student student);
 }

@@ -27,7 +27,7 @@ public class JavaProject7Controller {
     private JavaProject7Service javaProject7Service;
     
     public List<Student> getStudenten() {
-        return studenten;
+        return javaProject7Service.getAllStudenten();
     }
     
     public void setStudenten(List<Student> studenten) {
