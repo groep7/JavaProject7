@@ -59,8 +59,6 @@ public class Student implements Serializable {
         this.studentennummer = studentennummer;
     }
     
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -83,7 +81,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "be.thomasmore.model.Student[ id=" + id + " ]";
+        return voornaam + " " + achternaam;
     }
     
 }
