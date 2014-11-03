@@ -39,23 +39,29 @@
             </div>
             <!-- ####################################################################################################### -->
             <div id="intro">
-                <div class="fl_left"> <a href="#"><img src="images/scores.png" alt="image scores" /></a> </div>
+                <div class="fl_left">
+
+                    <h:selectOneMenu >
+                        <h:outputText value="#{student.voornaam}"/>
+                    </h:selectOneMenu>
+                </div>
                 <div class="fl_right">
                     <h2>Score Tracker</h2>
-                                     
+
                     <h:dataTable var="student" value="#{javaProject7Controller.studenten}">
                         <h:column>
-                            <h:outputText value="#{student.toString}"/>
+                            <h:outputText value="#{student.voornaam} "/>
+                            <h:outputText value="#{student.achternaam}"/>
                         </h:column>
                     </h:dataTable>
-                    
+
                 </div>
                 <br class="clear" />
             </div>
             <!-- ####################################################################################################### -->
-            
-            
-            
+
+
+
             <div id="homecontent">
                 <h:form enctype="multipart/form-data">
                     <h:inputFile value="#{inputBean.part}"/>
@@ -64,8 +70,8 @@
                 </h:form>
                 <br class="clear" />
             </div>
-            
-            
+
+
             <!-- ####################################################################################################### -->
             <div id="imageline">
                 <ul>

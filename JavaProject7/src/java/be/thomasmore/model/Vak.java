@@ -22,9 +22,16 @@ public class Vak implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private String vaknaam;
-    
+    private String naam;
 
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+    
     public Long getId() {
         return id;
     }

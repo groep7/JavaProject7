@@ -7,7 +7,7 @@
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="hibernate.default_schema" value="sql353600"/>
+      <property name="hibernate.default_schema" value="groep7"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.driver"/>
       <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>

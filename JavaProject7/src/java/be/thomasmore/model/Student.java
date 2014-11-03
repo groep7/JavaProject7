@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Dries
  */
 @Entity
+@Table(name = "student")
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -24,7 +26,7 @@ public class Student implements Serializable {
     
     private String voornaam;
     private String achternaam;
-    private int studentennummer;
+    private int studentnr;
     
 
     public Long getId() {
@@ -52,11 +54,11 @@ public class Student implements Serializable {
     }
 
     public int getStudentennummer() {
-        return studentennummer;
+        return studentnr;
     }
 
-    public void setStudentennummer(int studentennummer) {
-        this.studentennummer = studentennummer;
+    public void setStudentennummer(int studentnr) {
+        this.studentnr = studentnr;
     }
     
     @Override
