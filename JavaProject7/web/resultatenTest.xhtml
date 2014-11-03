@@ -2,11 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Resultaten - test</title>
         <link rel="stylesheet" type="text/css" href="css/layout.css"/>
         <link rel="stylesheet" type="text/css" href="css/navi.css"/>
+
+        <script type="text/javascript">
+            function selectedKlas{
+                alert("klas geselecteerd")
+            }
+        </script>
     </h:head>
     <h:body id="top">
         <div class="wrapper">
@@ -40,18 +47,20 @@
             <!-- ####################################################################################################### -->
             <div id="intro">
                 <div class="fl_left">
-
-                    <h:selectOneMenu >
-                        <h:outputText value="#{student.voornaam}"/>
-                    </h:selectOneMenu>
+                    <h:form>
+                        <h:selectOneMenu value="#{javaProject7Controller.selectedKlas(klas)}" onchange="selectedKlas">
+                            <f:selectItem itemValue="0" itemLabel="--Selecteer klas--"/>
+                            <f:selectItems value="#{javaProject7Controller.klassen}" var="klas" itemValue="#{klas.id}" itemLabel="#{klas.naam}"/>
+                        </h:selectOneMenu>
+                    </h:form>
                 </div>
+
                 <div class="fl_right">
                     <h2>Score Tracker</h2>
 
                     <h:dataTable var="student" value="#{javaProject7Controller.studenten}">
                         <h:column>
-                            <h:outputText value="#{student.voornaam} "/>
-                            <h:outputText value="#{student.achternaam}"/>
+                            <h:outputText value="#{student.toString()}"/>
                         </h:column>
                     </h:dataTable>
 
@@ -60,89 +69,6 @@
             </div>
             <!-- ####################################################################################################### -->
 
-
-
-            <div id="homecontent">
-                <h:form enctype="multipart/form-data">
-                    <h:inputFile value="#{inputBean.part}"/>
-                    <h:commandButton id="submit" action="#{inputBean.uploadFile}" value="upload file" /><br />
-                    <h:commandButton action="#{inputBean.Write}" value="PDF"/>
-                </h:form>
-                <br class="clear" />
-            </div>
-
-
-            <!-- ####################################################################################################### -->
-            <div id="imageline">
-                <ul>
-                    <li><a href="#"><img src="images/demo/174x100.gif" alt="" /></a></li>
-                    <li><a href="#"><img src="images/demo/174x100.gif" alt="" /></a></li>
-                    <li><a href="#"><img src="images/demo/174x100.gif" alt="" /></a></li>
-                    <li><a href="#"><img src="images/demo/174x100.gif" alt="" /></a></li>
-                    <li class="last"><a href="#"><img src="images/demo/174x100.gif" alt="" /></a></li>
-                </ul>
-                <br class="clear" />
-            </div>
-            <!-- ####################################################################################################### -->
-            <div id="footer">
-                <div class="footbox">
-                    <h2>Lacus interdum</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li><a href="#">Praesent et eros</a></li>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li class="last"><a href="#">Praesent et eros</a></li>
-                    </ul>
-                </div>
-                <div class="footbox">
-                    <h2>Lacus interdum</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li><a href="#">Praesent et eros</a></li>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li class="last"><a href="#">Praesent et eros</a></li>
-                    </ul>
-                </div>
-                <div class="footbox">
-                    <h2>Lacus interdum</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li><a href="#">Praesent et eros</a></li>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li class="last"><a href="#">Praesent et eros</a></li>
-                    </ul>
-                </div>
-                <div class="footbox">
-                    <h2>Lacus interdum</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li><a href="#">Praesent et eros</a></li>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li class="last"><a href="#">Praesent et eros</a></li>
-                    </ul>
-                </div>
-                <div class="footbox last">
-                    <h2>Lacus interdum</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li><a href="#">Praesent et eros</a></li>
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Suspendisse in neque</a></li>
-                        <li class="last"><a href="#">Praesent et eros</a></li>
-                    </ul>
-                </div>
-                <br class="clear" />
-            </div>
-            <!-- ####################################################################################################### -->
             <div id="copyright">
                 <p class="fl_left">Copyright &copy; 2011 - All Rights Reserved - <a href="#">Java Project Groep 7</a></p>
                 <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
