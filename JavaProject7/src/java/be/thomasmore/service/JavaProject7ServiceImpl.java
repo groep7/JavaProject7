@@ -39,6 +39,10 @@ public class JavaProject7ServiceImpl implements JavaProject7Service {
     public void addStudent(Student student) {
         em.persist(student);
     }
+    
+    public void addKlas(Klas klas) {
+        em.persist(klas);
+    }
 
     public List<Klas> getAllKlassen() {
         Query q = em.createQuery("SELECT k FROM Klas k");

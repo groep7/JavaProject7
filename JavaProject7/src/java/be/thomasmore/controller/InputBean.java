@@ -9,7 +9,10 @@ package be.thomasmore.controller;
  *
  * @author Logic
  */
+import be.thomasmore.model.Klas;
 import be.thomasmore.model.Student;
+import be.thomasmore.model.Test;
+import be.thomasmore.service.JavaProject7Service;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -27,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -46,6 +50,9 @@ public class InputBean implements Serializable {
 
     private Part part;
     private String statusMessage;
+
+    @EJB
+    private JavaProject7Service javaProject7Service;
 
     public String uploadFile() throws IOException {
 
@@ -185,20 +192,54 @@ public class InputBean implements Serializable {
             Iterator<Row> rowIterator = worksheet.iterator();
 
             List<Student> studenten = new ArrayList();
-            
+            Test test = new Test();
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
 
-                if (row.getRowNum() > 5) {
+                if (row.getRowNum() == 0) {
+                    Iterator<Cell> cellIterator = row.cellIterator();
+
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+
+                        if (!cell.getStringCellValue().equals("klas")) {
+                            switch (cell.getCellType()) {
+                                case Cell.CELL_TYPE_STRING:
+                                    Klas klas = new Klas();
+                                    klas.setNaam(cell.getStringCellValue());
+                                    javaProject7Service.addKlas(klas);
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (row.getRowNum() == 1) { //test opstellen
+                    Iterator<Cell> cellIterator = row.cellIterator();
+
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+
+                        if (!cell.getStringCellValue().equals("Vak")) {
+                            switch (cell.getCellType()) {
+                                case Cell.CELL_TYPE_STRING:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (row.getRowNum() > 5) { // enkel studenten, niet de dingen erboven
                     //For each row, iterate through each columns
                     Iterator<Cell> cellIterator = row.cellIterator();
-                    
+
                     Student student = new Student();
-                    
+
                     while (cellIterator.hasNext()) {
 
                         Cell cell = cellIterator.next();
-                        
+
                         switch (cell.getCellType()) {
                             case Cell.CELL_TYPE_NUMERIC:
                                 student.setStudentennummer((int) cell.getNumericCellValue());
@@ -217,10 +258,12 @@ public class InputBean implements Serializable {
                         studenten.add(student);
                     }
                 }
-                System.out.println("");
             }
 
-            
+            for (Student student : studenten) {
+                javaProject7Service.addStudent(student);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

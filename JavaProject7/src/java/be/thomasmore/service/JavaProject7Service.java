@@ -22,6 +22,8 @@ public interface JavaProject7Service {
     public List<Student> getAllStudenten();
 
     public void addStudent(Student student);
+    
+    public void addKlas(Klas klas);
 
     public List<Klas> getAllKlassen();
 }
