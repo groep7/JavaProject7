@@ -250,8 +250,8 @@ public class InputBean implements Serializable {
                                 } else {
                                     String volledigeNaam = cell.getStringCellValue();
                                     String[] delen = volledigeNaam.split(" ");
-                                    student.setVoornaam(delen[1]);
-                                    student.setAchternaam(delen[2]);
+                                    student.setVoornaam(delen[0]);
+                                    student.setAchternaam(delen[1]);
                                     break;
                                 }
                         }
