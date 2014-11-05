@@ -9,6 +9,7 @@ package be.thomasmore.controller;
  *
  * @author Logic
  */
+import be.thomasmore.model.Student;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -21,12 +22,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -75,9 +81,9 @@ public class InputBean implements Serializable {
                 inputStream.close();
             }
         }
-        
+
         leesExcel(basePath + fileName);
-        
+
         return null;    // return to same page
     }
 
@@ -141,33 +147,32 @@ public class InputBean implements Serializable {
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheet("Blad1");
 
-            XSSFRow row1 = worksheet.getRow(0);
-            XSSFCell cellA1 = row1.getCell((short) 0);
-            String a1Val = cellA1.getStringCellValue();
-            XSSFCell cellB1 = row1.getCell((short) 1);
-            String b1Val = cellB1.getStringCellValue();
-
-            XSSFRow row2 = worksheet.getRow(1);
-            XSSFCell cellA2 = row2.getCell((short) 0);
-            String a2Val = cellA2.getStringCellValue();
-            XSSFCell cellB2 = row2.getCell((short) 1);
-            String b2Val = cellB2.getStringCellValue();
-
-            XSSFRow row7 = worksheet.getRow(6);
-            int a7Val = (int) row7.getCell((short) 0).getNumericCellValue();
-            String b7Val = row7.getCell((short) 1).getStringCellValue();
-            int c7Val = (int) row7.getCell((short) 2).getNumericCellValue();
-
-            XSSFRow row8 = worksheet.getRow(7);
-            int a8Val = (int) row8.getCell((short) 0).getNumericCellValue();
-            String b8Val = row8.getCell((short) 1).getStringCellValue();
-            int c8Val = (int) row8.getCell((short) 2).getNumericCellValue();
-
-            XSSFRow row9 = worksheet.getRow(8);
-            int a9Val = (int) row9.getCell((short) 0).getNumericCellValue();
-            String b9Val = row9.getCell((short) 1).getStringCellValue();
-            int c9Val = (int) row9.getCell((short) 2).getNumericCellValue();
-
+//            XSSFRow row1 = worksheet.getRow(0);
+//            XSSFCell cellA1 = row1.getCell((short) 0);
+//            String a1Val = cellA1.getStringCellValue();
+//            XSSFCell cellB1 = row1.getCell((short) 1);
+//            String b1Val = cellB1.getStringCellValue();
+//
+//            XSSFRow row2 = worksheet.getRow(1);
+//            XSSFCell cellA2 = row2.getCell((short) 0);
+//            String a2Val = cellA2.getStringCellValue();
+//            XSSFCell cellB2 = row2.getCell((short) 1);
+//            String b2Val = cellB2.getStringCellValue();
+//
+//            XSSFRow row7 = worksheet.getRow(6);
+//            int a7Val = (int) row7.getCell((short) 0).getNumericCellValue();
+//            String b7Val = row7.getCell((short) 1).getStringCellValue();
+//            int c7Val = (int) row7.getCell((short) 2).getNumericCellValue();
+//
+//            XSSFRow row8 = worksheet.getRow(7);
+//            int a8Val = (int) row8.getCell((short) 0).getNumericCellValue();
+//            String b8Val = row8.getCell((short) 1).getStringCellValue();
+//            int c8Val = (int) row8.getCell((short) 2).getNumericCellValue();
+//
+//            XSSFRow row9 = worksheet.getRow(8);
+//            int a9Val = (int) row9.getCell((short) 0).getNumericCellValue();
+//            String b9Val = row9.getCell((short) 1).getStringCellValue();
+//            int c9Val = (int) row9.getCell((short) 2).getNumericCellValue();
 //            System.out.println("A1: " + a1Val);
 //            System.out.println("B1: " + b1Val);
 //            System.out.println("A2: " + a2Val);
@@ -176,7 +181,45 @@ public class InputBean implements Serializable {
 //            System.out.println(a7Val + " " + b7Val + " " + c7Val);
 //            System.out.println(a8Val + " " + b8Val + " " + c8Val);
 //            System.out.println(a9Val + " " + b9Val + " " + c9Val);
+            //Get iterator to all the rows in current sheet
+            Iterator<Row> rowIterator = worksheet.iterator();
+
+            List<Student> studenten = new ArrayList();
             
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+
+                if (row.getRowNum() > 5) {
+                    //For each row, iterate through each columns
+                    Iterator<Cell> cellIterator = row.cellIterator();
+                    
+                    Student student = new Student();
+                    
+                    while (cellIterator.hasNext()) {
+
+                        Cell cell = cellIterator.next();
+                        
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_NUMERIC:
+                                student.setStudentennummer((int) cell.getNumericCellValue());
+                                break;
+                            case Cell.CELL_TYPE_STRING:
+                                if (cell.getStringCellValue().equals("zit al in de DB")) {
+                                    break;
+                                } else {
+                                    String volledigeNaam = cell.getStringCellValue();
+                                    String[] delen = volledigeNaam.split(" ");
+                                    student.setVoornaam(delen[1]);
+                                    student.setAchternaam(delen[2]);
+                                    break;
+                                }
+                        }
+                        studenten.add(student);
+                    }
+                }
+                System.out.println("");
+            }
+
             
         } catch (FileNotFoundException e) {
             e.printStackTrace();
