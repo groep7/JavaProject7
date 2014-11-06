@@ -150,6 +150,8 @@ public class InputBean implements Serializable {
 
     private void leesExcel(String path) {
         try {
+            
+            //declaratie en blad uit excel selecteren enzo
             FileInputStream fileInputStream = new FileInputStream(path);
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheet("Blad1");
@@ -188,64 +190,67 @@ public class InputBean implements Serializable {
 //            System.out.println(a7Val + " " + b7Val + " " + c7Val);
 //            System.out.println(a8Val + " " + b8Val + " " + c8Val);
 //            System.out.println(a9Val + " " + b9Val + " " + c9Val);
-            //Get iterator to all the rows in current sheet
+            
+            //iterator dat door alle rijen gaat van het excel-blad
             Iterator<Row> rowIterator = worksheet.iterator();
 
-            List<Student> studenten = new ArrayList();
-            Test test = new Test();
+            List<Student> studenten = new ArrayList(); //lijst aanmaken met alle studenten uit excel
+            Test test = new Test(); //test aanmaken
 
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
+            while (rowIterator.hasNext()) { //als er nog een rij bestaat die niet leeg is
+                Row row = rowIterator.next(); //row-object aanmaken van huidige rij
 
-                if (row.getRowNum() == 0) {
-                    Iterator<Cell> cellIterator = row.cellIterator();
+                if (row.getRowNum() == 0) { //als de nummer van de rij = 0 (dus de 0de rij van het excel bestand = klas)
+                    Iterator<Cell> cellIterator = row.cellIterator(); //voor deze rij elke cel in deze rij afgaan met een iterator
 
-                    while (cellIterator.hasNext()) {
-                        Cell cell = cellIterator.next();
+                    while (cellIterator.hasNext()) { //als er nog een cell bestaat die niet leeg is
+                        Cell cell = cellIterator.next(); //cell-object aanmaken van huidige cell
 
-                        if (!cell.getStringCellValue().equals("klas")) {
+                        if (!cell.getStringCellValue().equals("klas")) { //als er het woord "klas" in de cell staat, deze overslaan. Als de cel van de 0de rij (klas-rij) iets anders is dan "klas" dus (=A1 in excel)
                             switch (cell.getCellType()) {
-                                case Cell.CELL_TYPE_STRING:
-                                    Klas klas = new Klas();
-                                    klas.setNaam(cell.getStringCellValue());
-                                    javaProject7Service.addKlas(klas);
+                                case Cell.CELL_TYPE_STRING: //als het type van de cel een string is
+                                    Klas klas = new Klas(); // klas-object aanmaken
+                                    klas.setNaam(cell.getStringCellValue()); //naam van klas instellen op de waarde van de cell
+                                    javaProject7Service.addKlas(klas); //verbinding met database (werkt niet denk ik)
                                     break;
                             }
                         }
                     }
                 }
 
-                if (row.getRowNum() == 1) { //test opstellen
+                //volgende if is hetzelfde principe als vorige enkel voor een andere rij
+                if (row.getRowNum() == 1) { //nummer van de rij = 1 (dus eigenlijk in excel de 2de rij)
                     Iterator<Cell> cellIterator = row.cellIterator();
 
                     while (cellIterator.hasNext()) {
                         Cell cell = cellIterator.next();
 
-                        if (!cell.getStringCellValue().equals("Vak")) {
+                        if (!cell.getStringCellValue().equals("Vak")) { //als er het woord "Vak" in de cell staat, deze overslaan
                             switch (cell.getCellType()) {
                                 case Cell.CELL_TYPE_STRING:
+                                    //hier moet nog code komen om het vak toe te voegen aan het Test-object (zie regel 196)
                                     break;
                             }
                         }
                     }
                 }
 
-                if (row.getRowNum() > 5) { // enkel studenten, niet de dingen erboven
-                    //For each row, iterate through each columns
+                //weer hetzelfde principe als hierboven
+                if (row.getRowNum() > 5) { // enkel voor de rijen 5 en hoger (dus enkel studenten)
                     Iterator<Cell> cellIterator = row.cellIterator();
 
-                    Student student = new Student();
+                    Student student = new Student(); //nieuw student-object aanmaken per rij
 
                     while (cellIterator.hasNext()) {
 
                         Cell cell = cellIterator.next();
 
                         switch (cell.getCellType()) {
-                            case Cell.CELL_TYPE_NUMERIC:
+                            case Cell.CELL_TYPE_NUMERIC: //als de cell een int is
                                 student.setStudentennummer((int) cell.getNumericCellValue());
                                 break;
-                            case Cell.CELL_TYPE_STRING:
-                                if (cell.getStringCellValue().equals("zit al in de DB")) {
+                            case Cell.CELL_TYPE_STRING: //als de cell een string is
+                                if (cell.getStringCellValue().equals("zit al in de DB")) { //als de cell "zit al in de DB" bevat, niets doen (zie excel; laatste regel)
                                     break;
                                 } else {
                                     String volledigeNaam = cell.getStringCellValue();
@@ -255,13 +260,14 @@ public class InputBean implements Serializable {
                                     break;
                                 }
                         }
-                        studenten.add(student);
+                        studenten.add(student); //student toevoegen aan studenten list
                     }
                 }
             }
 
+            // elke student uit de lits toevoegen aan de database
             for (Student student : studenten) {
-                javaProject7Service.addStudent(student);
+                javaProject7Service.addStudent(student); // (geen idee of dit werkt)
             }
 
         } catch (FileNotFoundException e) {
