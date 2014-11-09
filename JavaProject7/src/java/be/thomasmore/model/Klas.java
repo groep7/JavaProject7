@@ -26,11 +26,6 @@ public class Klas implements Serializable {
     private Long id;
     private String naam;
     private List<SelectItem> klasIds;
-    
-    @OneToOne
-    public Klas {
-    
-}
 
     public Long getId() {
         return id;
