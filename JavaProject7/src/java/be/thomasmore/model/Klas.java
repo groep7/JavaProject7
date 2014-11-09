@@ -6,10 +6,13 @@
 package be.thomasmore.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.faces.model.SelectItem;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,9 +24,13 @@ public class Klas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     private String naam;
+    private List<SelectItem> klasIds;
     
+    @OneToOne
+    public Klas {
+    
+}
 
     public Long getId() {
         return id;

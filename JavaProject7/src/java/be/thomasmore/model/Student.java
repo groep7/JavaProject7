@@ -22,7 +22,7 @@ public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idstudent;
+    private Long id;
     
     private String voornaam;
     private String achternaam;
@@ -30,11 +30,11 @@ public class Student implements Serializable {
     
 
     public Long getId() {
-        return idstudent;
+        return id;
     }
 
-    public void setId(Long idstudent) {
-        this.idstudent = idstudent;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getVoornaam() {
@@ -64,7 +64,7 @@ public class Student implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idstudent != null ? idstudent.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -75,7 +75,7 @@ public class Student implements Serializable {
             return false;
         }
         Student other = (Student) object;
-        if ((this.idstudent == null && other.idstudent != null) || (this.idstudent != null && !this.idstudent.equals(other.idstudent))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="css/layout.css"/>
@@ -38,33 +39,25 @@
             <div id="intro">
                 <div class="fl_left"> <a href="#"><img src="images/scores.png" alt="image scores" /></a> </div>
                 <div class="fl_right">
-                    <h2>Score Tracker</h2>
-                    <p>Deze applicatie biedt u de kans om een excel bestand up te loaden met punten.</p>
-                    <p>De applicatie vewerkt dit bestand en biedt de gegevens aan op een andere webpagina.</p>
-                    <p>Als laatste kan u, als gebruiker, een PDF downloaden met de ingevoerde gegevens.</p>
+                    <h2>Zoekpagina</h2>
+                    <h:form>
+                        <h:selectOneMenu value="#{javaProject7Controller.klassen}">
+                            <f:selectItems value="#{javaProject7Controller.klassen}" />
+                        </h:selectOneMenu>
+                        
+                    </h:form>
                 </div>
                 <br class="clear" />
             </div>
             <!-- ####################################################################################################### -->
-            
-            
-            
+
+
+
             <div id="homecontent">
-                <h:form enctype="multipart/form-data">
-                    <h:inputFile value="#{inputBean.part}"/>
-                    <h:commandButton id="submit" action="#{inputBean.uploadFile}" value="upload file" /><br />
-                    <h:commandButton action="#{inputBean.Write}" value="PDF"/>
-                </h:form>
-                <h:dataTable var ="student" value="#{javaProject7Controller.studenten}">
-                    <h:column>
-                        <h:outputText value="#{student.voornaam}"/>
-                    </h:column>
-                </h:dataTable>
-                <p>#{javaProject7Controller.testZin}</p>
-                <br class="clear" />
+
             </div>
-            
-            
+
+
             <!-- ####################################################################################################### -->
             <div id="imageline">
                 <ul>

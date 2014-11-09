@@ -38,7 +38,7 @@ public class JavaProject7Controller {
     public List<Klas> getKlassen() {
         return javaProject7Service.getAllKlassen();
     }
-
+    
     public void setKlassen(List<Klas> klassen) {
         this.klassen = klassen;
     }
