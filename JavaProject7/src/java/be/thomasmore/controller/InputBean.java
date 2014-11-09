@@ -150,7 +150,7 @@ public class InputBean implements Serializable {
 
     private void leesExcel(String path) {
         try {
-            
+
             //declaratie en blad uit excel selecteren enzo
             FileInputStream fileInputStream = new FileInputStream(path);
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
@@ -190,12 +190,12 @@ public class InputBean implements Serializable {
 //            System.out.println(a7Val + " " + b7Val + " " + c7Val);
 //            System.out.println(a8Val + " " + b8Val + " " + c8Val);
 //            System.out.println(a9Val + " " + b9Val + " " + c9Val);
-            
             //iterator dat door alle rijen gaat van het excel-blad
             Iterator<Row> rowIterator = worksheet.iterator();
 
-            List<Student> studenten = new ArrayList(); //lijst aanmaken met alle studenten uit excel
             Test test = new Test(); //test aanmaken
+            String klasNaam = "";
+            Long klasId = 0L;
 
             while (rowIterator.hasNext()) { //als er nog een rij bestaat die niet leeg is
                 Row row = rowIterator.next(); //row-object aanmaken van huidige rij
@@ -210,8 +210,22 @@ public class InputBean implements Serializable {
                             switch (cell.getCellType()) {
                                 case Cell.CELL_TYPE_STRING: //als het type van de cel een string is
                                     Klas klas = new Klas(); // klas-object aanmaken
+                                    klasNaam = cell.getStringCellValue();
                                     klas.setNaam(cell.getStringCellValue()); //naam van klas instellen op de waarde van de cell
-                                    javaProject7Service.addKlas(klas); //verbinding met database (werkt niet denk ik)
+
+                                    List<Klas> alleKlassen = javaProject7Service.getAllKlassen();
+
+                                    boolean bestaatAl = false;
+
+                                    for (Klas alleKlas : alleKlassen) {
+                                        if (alleKlas.getNaam().equals(klasNaam)) {
+                                            bestaatAl = true;
+                                        }
+                                    }
+
+                                    if (bestaatAl) {
+                                        klasId = javaProject7Service.addKlas(klas);
+                                    }
                                     break;
                             }
                         }
@@ -247,10 +261,12 @@ public class InputBean implements Serializable {
 
                         switch (cell.getCellType()) {
                             case Cell.CELL_TYPE_NUMERIC: //als de cell een int is
-                                student.setStudentennummer((int) cell.getNumericCellValue());
+                                student.setStudentnr((int) cell.getNumericCellValue());
+                                //Klas klas = javaProject7Service.getKlasByNaam(klasNaam); //klas ophalen uit db adhv klasnaam
+                                student.setKlasId(klasId);
                                 break;
                             case Cell.CELL_TYPE_STRING: //als de cell een string is
-                                if (cell.getStringCellValue().equals("zit al in de DB")) { //als de cell "zit al in de DB" bevat, niets doen (zie excel; laatste regel)
+                                if (cell.getStringCellValue().equals("zit al in de DB") || cell.getStringCellValue() != null || cell.getStringCellValue().equals("")) { //als de cell "zit al in de DB" bevat, niets doen (zie excel; laatste regel)
                                     break;
                                 } else {
                                     String volledigeNaam = cell.getStringCellValue();
@@ -260,14 +276,9 @@ public class InputBean implements Serializable {
                                     break;
                                 }
                         }
-                        studenten.add(student); //student toevoegen aan studenten list
+                        javaProject7Service.addStudent(student); //student toevoegen aan studenten list
                     }
                 }
-            }
-
-            // elke student uit de lits toevoegen aan de database
-            for (Student student : studenten) {
-                javaProject7Service.addStudent(student); // (geen idee of dit werkt)
             }
 
         } catch (FileNotFoundException e) {

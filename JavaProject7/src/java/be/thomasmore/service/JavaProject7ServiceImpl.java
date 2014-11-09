@@ -40,12 +40,20 @@ public class JavaProject7ServiceImpl implements JavaProject7Service {
         em.persist(student);
     }
     
-    public void addKlas(Klas klas) {
+    public Long addKlas(Klas klas) {
         em.persist(klas);
+        return klas.getId();
     }
 
     public List<Klas> getAllKlassen() {
         Query q = em.createQuery("SELECT k FROM Klas k");
         return (List<Klas>) q.getResultList();
+    }
+    
+    public Klas getKlasByNaam(String klasnaam) {
+        Query q = em.createQuery("SELECT k from Klas k WHERE k.naam = ?1");
+        q.setParameter(1, klasnaam);
+        
+        return (Klas) q.getSingleResult();
     }
 }

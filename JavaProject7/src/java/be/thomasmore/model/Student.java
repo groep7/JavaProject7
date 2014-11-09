@@ -27,6 +27,7 @@ public class Student implements Serializable {
     private String voornaam;
     private String achternaam;
     private int studentnr;
+    private Long klasId;
     
 
     public Long getId() {
@@ -53,13 +54,25 @@ public class Student implements Serializable {
         this.achternaam = achternaam;
     }
 
-    public int getStudentennummer() {
+    public int getStudentnr() {
         return studentnr;
     }
 
-    public void setStudentennummer(int studentnr) {
+    public void setStudentnr(int studentnr) {
         this.studentnr = studentnr;
     }
+
+    public Long getKlasId() {
+        return klasId;
+    }
+
+    public void setKlasId(Long klasId) {
+        this.klasId = klasId;
+    }
+    
+    
+    
+    
     
     @Override
     public int hashCode() {

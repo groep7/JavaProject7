@@ -25,7 +25,7 @@ public class Klas implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String naam;
-    private List<SelectItem> klasIds;
+    
 
     public Long getId() {
         return id;
@@ -42,6 +42,7 @@ public class Klas implements Serializable {
     public void setNaam(String naam) {
         this.naam = naam;
     }
+
     
     
 

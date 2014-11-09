@@ -23,7 +23,9 @@ public interface JavaProject7Service {
 
     public void addStudent(Student student);
     
-    public void addKlas(Klas klas);
+    public Long addKlas(Klas klas);
 
     public List<Klas> getAllKlassen();
+    
+    public Klas getKlasByNaam(String klasnaam);
 }
